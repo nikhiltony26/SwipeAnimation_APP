@@ -54,7 +54,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           // Swipe animation to the left
           Animated.timing(position, {
             toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: 100, // Shortened duration
+            duration: 50, // Shortened duration
             useNativeDriver: false,
           }).start(() => {
             onSwipe('left');
