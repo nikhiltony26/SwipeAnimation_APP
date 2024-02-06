@@ -36,6 +36,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: 0 });
       },
+      
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120) {
           // Swipe animation to the right
@@ -50,7 +51,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           // Swipe animation to the left
           Animated.timing(position, {
             toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: 300,
+            duration: 150,
             useNativeDriver: false,
           }).start(() => {
             onSwipe('left');
