@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
-const CARD_HEIGHT = 400;
+const CARD_HEIGHT = 600;
 const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 
 const Card = ({ backgroundColor, index, onSwipe }) => {
