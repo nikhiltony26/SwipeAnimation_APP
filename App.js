@@ -75,6 +75,21 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
     </Animated.View>
   );
 };
+Animated.parallel([
+  Animated.timing(position, {
+    toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
+    duration: 300,
+    useNativeDriver: false,
+  }),
+  Animated.timing(scale, {
+    toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
+    duration: 300,
+    useNativeDriver: false,
+  }),
+]).start(() => {
+  // Call handleSwipe when animation ends
+  handleSwipe();
+});
 
 
 const SwipeAnimationApp = () => {
