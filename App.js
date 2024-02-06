@@ -10,8 +10,28 @@ const SwipeAnimationApp = () => {
       position.setValue({ x: gesture.dx, y: gesture.dy });
     },
     onPanResponderRelease: (event, gesture) => {
-      // Add logic to handle swipe release
-      // For example, animate card off the screen based on swipe direction
+      if (gesture.dx > 120) {
+        // Swipe right, animate off screen to the right
+        Animated.timing(position, {
+          toValue: { x: 500, y: gesture.dy },
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      } else if (gesture.dx < -120) {
+        // Swipe left, animate off screen to the left
+        Animated.timing(position, {
+          toValue: { x: -500, y: gesture.dy },
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      } else {
+        // Not a significant swipe, animate back to initial position
+        Animated.spring(position, {
+          toValue: { x: 0, y: 0 },
+          friction: 4,
+          useNativeDriver: false,
+        }).start();
+      }
     },
   });
 
