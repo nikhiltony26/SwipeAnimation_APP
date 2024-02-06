@@ -25,22 +25,23 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         position.setValue({ x: gesture.dx, y: 0 });
       },
       onPanResponderRelease: (event, gesture) => {
-        if (gesture.dx > 120 || gesture.dx < -120) {
-          // Swipe animation
-          Animated.parallel([
-            Animated.timing(position, {
-              toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-              duration: 300,
-              useNativeDriver: false, // Ensure useNativeDriver is set to false for the position animation
-            }),
-            Animated.timing(scale, {
-              toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
-              duration: 300,
-              useNativeDriver: false, // Ensure useNativeDriver is set to false for the scale animation
-            }),
-          ]).start(() => {
-            // Call onSwipe function when animation ends
-            onSwipe();
+        if (gesture.dx > 120) {
+          // Swipe animation to the right
+          Animated.timing(position, {
+            toValue: { x: SCREEN_WIDTH + CARD_WIDTH, y: 0 },
+            duration: 300,
+            useNativeDriver: false,
+          }).start(() => {
+            onSwipe('right');
+          });
+        } else if (gesture.dx < -120) {
+          // Swipe animation to the left
+          Animated.timing(position, {
+            toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
+            duration: 300,
+            useNativeDriver: false,
+          }).start(() => {
+            onSwipe('left');
           });
         } else {
           // Not a significant swipe, animate back to initial position
@@ -59,7 +60,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       {...panResponder.panHandlers}
       style={[
         styles.cardContainer,
-        { transform: [{ translateY: index * 40 }, { translateX: position.x }, { scale: index === 0 ? scale : 1 }] }, // Scale only the behind card
+        { transform: [{ translateY: index * 40 }, { translateX: position.x }, { scale: index === 0 ? scale : 1 }] },
       ]}
     >
       <Animated.View
@@ -68,9 +69,21 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
         ]}
       >
-        {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={[styles.icon, { left: -120, top: -150 }]} />
-        <Icon name="check" size={30} color="green" style={[styles.icon, { right: -120, top: -180 }]} />
+        {/* Conditionally render the icon based on swipe direction */}
+        {index === 0 && (
+          <Animated.View style={{ position: 'absolute', top: -150, left: -120 }}>
+            {position.x.interpolate({
+              inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+              outputRange: ['red', 'transparent', 'transparent'],
+              extrapolate: 'clamp',
+            }) === 'red' && <Icon name="times" size={30} color="red" />}
+            {position.x.interpolate({
+              inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+              outputRange: ['transparent', 'transparent', 'green'],
+              extrapolate: 'clamp',
+            }) === 'green' && <Icon name="check" size={30} color="green" />}
+          </Animated.View>
+        )}
       </Animated.View>
     </Animated.View>
   );
@@ -78,11 +91,12 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
 
 
 const SwipeAnimationApp = () => {
-  const handleSwipe = () => {
+  const handleSwipe = (direction) => {
     // Handle swipe animation completion
     // Here, you can trigger the bouncing animation for the card behind
     // For example:
-       animateBouncing();
+    // animateBouncing();
+    console.log('Swiped:', direction);
   };
 
   // Function to animate bouncing for the card behind
