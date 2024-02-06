@@ -44,13 +44,13 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           Animated.timing(leftIconOpacity, {
             toValue: 0,
             duration: 0,
-            useNativeDriver: false,
+            useNativeDriver: true,
           }).start();
         } else if (gesture.dx < -50) {
           Animated.timing(rightIconOpacity, {
             toValue: 0,
             duration: 0,
-            useNativeDriver: false,
+            useNativeDriver: true,
           }).start();
           Animated.timing(leftIconOpacity, {
             toValue: 1,
