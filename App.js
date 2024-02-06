@@ -6,7 +6,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 326;
 const CARD_HEIGHT = 500;
-const BEHIND_CARD_SCALE = 0.1; // Increase the scale of the behind card
+const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
