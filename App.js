@@ -51,21 +51,19 @@ const Card = ({ backgroundColor, index }) => {
       {...panResponder.panHandlers}
       style={[
         styles.cardContainer,
-        { transform: [{ translateY: index * 20 }] },
+        { transform: [{ translateY: index * 40 }] },
       ]}
     >
-      <View style={{ height: CARD_HEIGHT + index * 20 }}>
-        <Animated.View
-          style={[
-            styles.card,
-            { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
-          ]}
-        >
-          {/* Card content here */}
-          <Icon name="times" size={30} color="red" style={styles.icon} />
-          <Icon name="check" size={30} color="green" style={styles.icon} />
-        </Animated.View>
-      </View>
+      <Animated.View
+        style={[
+          styles.card,
+          { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
+        ]}
+      >
+        {/* Card content here */}
+        <Icon name="times" size={30} color="red" style={styles.icon} />
+        <Icon name="check" size={30} color="green" style={styles.icon} />
+      </Animated.View>
     </Animated.View>
   );
 };
@@ -90,6 +88,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
