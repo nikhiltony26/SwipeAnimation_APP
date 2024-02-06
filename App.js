@@ -115,5 +115,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+const SwipeAnimationApp = () => {
+  // Your SwipeAnimationApp component implementation
+};
 
 export default SwipeAnimationApp;
