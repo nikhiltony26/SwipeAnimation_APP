@@ -135,6 +135,10 @@ const styles = StyleSheet.create({
     top: -180,
     left: -100, 
   },
+  iconBackground: {
+    borderRadius: 100,
+    padding: 10,
+  },
 });
 
 export default SwipeAnimationApp;
