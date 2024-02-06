@@ -71,7 +71,7 @@ const SwipeAnimationApp = () => {
     // Handle swipe animation completion
     // Here, you can trigger the bouncing animation for the card behind
     // For example:
-    // animateBouncing();
+    animateBouncing();
   };
 
   // Function to animate bouncing for the card behind
