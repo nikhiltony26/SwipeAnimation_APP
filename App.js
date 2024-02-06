@@ -70,7 +70,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           // Not a significant swipe, animate back to initial position
           Animated.spring(position, {
             toValue: { x: 0, y: 0 },
-            friction: 4,
+            friction: 8,
             useNativeDriver: false,
           }).start();
         }
