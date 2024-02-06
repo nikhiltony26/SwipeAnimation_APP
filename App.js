@@ -3,6 +3,7 @@ import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-nati
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
 const CARD_HEIGHT = 400;
 
@@ -50,8 +51,8 @@ const SwipeAnimationApp = () => {
       <Animated.View
         {...panResponder.panHandlers}
         style={[
-          { transform: [{ translateX: position.x }] },
           styles.cardContainer,
+          { transform: position.getTranslateTransform() },
         ]}
       >
         <Animated.View
@@ -72,13 +73,15 @@ const SwipeAnimationApp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cardContainer: {
     position: 'absolute',
-    bottom: 0,
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
+    top: SCREEN_HEIGHT / 2 - CARD_HEIGHT / 2,
+    left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
     zIndex: 2,
   },
   card: {
