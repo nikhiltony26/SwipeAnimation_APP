@@ -1,11 +1,6 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AppRegistry } from 'react-native';
-import App from './App'; // Import your main component from the correct file
-
-AppRegistry.registerComponent('SwipeAnimationApp', () => App);
-
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -80,43 +75,25 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
     </Animated.View>
   );
 };
-Animated.parallel([
-  Animated.timing(position, {
-    toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-    duration: 300,
-    useNativeDriver: false,
-  }),
-  Animated.timing(scale, {
-    toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
-    duration: 300,
-    useNativeDriver: false,
-  }),
-]).start(() => {
-  // Call handleSwipe when animation ends
-  handleSwipe();
-});
 
 
 const SwipeAnimationApp = () => {
   const handleSwipe = () => {
-  // Animate the behind card when the front card is swiped
-  Animated.spring(cardPositions[1], {
-    toValue: { x: 0, y: 0 },
-    friction: 8,
-    useNativeDriver: false,
-  }).start();
-};
-
+    // Handle swipe animation completion
+    // Here, you can trigger the bouncing animation for the card behind
+    // For example:
+       animateBouncing();
+  };
 
   // Function to animate bouncing for the card behind
   const animateBouncing = () => {
     // Implement the bouncing animation for the card behind
     // For example:
-    //   Animated.spring(cardBehindPosition, {
+    // Animated.spring(cardBehindPosition, {
     //   toValue: { x: 0, y: 0 },
     //   friction: 8,
     //   useNativeDriver: false,
-   //  }).start();
+    // }).start();
   };
 
   return (
