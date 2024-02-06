@@ -6,9 +6,12 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
 const CARD_HEIGHT = 400;
+const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
+  const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
+
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
     outputRange: ['-10deg', '0deg', '10deg'],
@@ -24,11 +27,18 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120 || gesture.dx < -120) {
           // Swipe animation
-          Animated.timing(position, {
-            toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: 300,
-            useNativeDriver: false,
-          }).start(() => {
+          Animated.parallel([
+            Animated.timing(position, {
+              toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
+              duration: 300,
+              useNativeDriver: false,
+            }),
+            Animated.timing(scale, {
+              toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
+              duration: 300,
+              useNativeDriver: true,
+            }),
+          ]).start(() => {
             // Call onSwipe function when animation ends
             onSwipe();
           });
@@ -49,7 +59,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       {...panResponder.panHandlers}
       style={[
         styles.cardContainer,
-        { transform: [{ translateY: index * 40 }, { translateX: position.x }] },
+        { transform: [{ translateY: index * 40 }, { translateX: position.x }, { scale: index === 0 ? scale : 1 }] }, // Scale only the behind card
       ]}
     >
       <Animated.View
@@ -68,17 +78,22 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
 
 const SwipeAnimationApp = () => {
   const handleSwipe = () => {
-    // Implement the bouncing animation for the card behind
+    // Handle swipe animation completion
+    // Here, you can trigger the bouncing animation for the card behind
     // For example:
-    Animated.spring(cardPositions[1], {
-      toValue: { x: 0, y: 0 },
-      friction: 8,
-      useNativeDriver: false,
-    }).start();
+    // animateBouncing();
   };
 
-  // Array to hold the positions of the cards
-  const cardPositions = [useRef(new Animated.ValueXY()).current, useRef(new Animated.ValueXY()).current, useRef(new Animated.ValueXY()).current];
+  // Function to animate bouncing for the card behind
+  const animateBouncing = () => {
+    // Implement the bouncing animation for the card behind
+    // For example:
+    // Animated.spring(cardBehindPosition, {
+    //   toValue: { x: 0, y: 0 },
+    //   friction: 8,
+    //   useNativeDriver: false,
+    // }).start();
+  };
 
   return (
     <View style={{ flex: 1 }}>
