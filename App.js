@@ -78,7 +78,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         styles.cardContainer,
         {
           transform: [
-            { translateY: index * 10 },
+            { translateY: index * 12 },
             { translateX: position.x },
             { scale: index === 0 ? scale : 1 },
             // Add translation for the card behind
