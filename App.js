@@ -35,7 +35,42 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: 0 });
-        
+       // Adjusting icon opacities based on gesture movement
+        if (gesture.dx > 50) {
+          Animated.timing(rightIconOpacity, {
+            toValue: 1,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+          Animated.timing(leftIconOpacity, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+        } else if (gesture.dx < -50) {
+          Animated.timing(rightIconOpacity, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+          Animated.timing(leftIconOpacity, {
+            toValue: 1,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+        } else {
+          Animated.timing(rightIconOpacity, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+          Animated.timing(leftIconOpacity, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: false,
+          }).start();
+        }
+      },  
       
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120) {
