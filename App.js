@@ -137,3 +137,4 @@ const styles = StyleSheet.create({
 });
 
 export default SwipeAnimationApp;
+export default SwipeAnimationApp;
