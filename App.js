@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { AppRegistry } from 'react-native';
 import App from './App'; // Import your main component from the correct file
 
-AppRegistry.registerComponent('SWIPEANIMATIONAPP', () => App);
+AppRegistry.registerComponent('SwipeAnimationApp', () => App);
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
