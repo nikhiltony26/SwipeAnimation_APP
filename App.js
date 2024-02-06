@@ -80,7 +80,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           transform: [
             { translateY: index * 10 },
             { translateX: position.x },
-            { scale: index === 0 ? scale : 1 },
+            { scale: index === 0 ? scale : 1.5 },
             // Add translation for the card behind
             { translateX: index * 1 }, // Adjust the value for desired effect
           ],
