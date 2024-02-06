@@ -54,16 +54,18 @@ const Card = ({ backgroundColor, index }) => {
         { transform: [{ translateY: index * 20 }] },
       ]}
     >
-      <Animated.View
-        style={[
-          styles.card,
-          { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
-        ]}
-      >
-        {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={styles.icon} />
-        <Icon name="check" size={30} color="green" style={styles.icon} />
-      </Animated.View>
+      <View style={{ height: CARD_HEIGHT + index * 20 }}>
+        <Animated.View
+          style={[
+            styles.card,
+            { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
+          ]}
+        >
+          {/* Card content here */}
+          <Icon name="times" size={30} color="red" style={styles.icon} />
+          <Icon name="check" size={30} color="green" style={styles.icon} />
+        </Animated.View>
+      </View>
     </Animated.View>
   );
 };
@@ -82,13 +84,12 @@ const SwipeAnimationApp = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     position: 'absolute',
-    top: SCREEN_HEIGHT / 2 - CARD_HEIGHT / 2,
+    top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 40) / 2, // Adjusted to accommodate extra height
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
     zIndex: 2,
   },
   card: {
     width: CARD_WIDTH,
-    height: CARD_HEIGHT,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   icon: {
     position: 'absolute',
