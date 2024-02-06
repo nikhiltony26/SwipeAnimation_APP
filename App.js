@@ -35,6 +35,16 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: 0 });
+        if (gesture.dx > 50) {
+          rightIconOpacity.setValue(1);
+          leftIconOpacity.setValue(0);
+        } else if (gesture.dx < -50) {
+          rightIconOpacity.setValue(0);
+          leftIconOpacity.setValue(1);
+        } else {
+          rightIconOpacity.setValue(0);
+          leftIconOpacity.setValue(0);
+        }
       },
       
       onPanResponderRelease: (event, gesture) => {
