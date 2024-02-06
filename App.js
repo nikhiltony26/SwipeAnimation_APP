@@ -1,13 +1,3 @@
-import React, { useRef } from 'react';
-import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const CARD_WIDTH = 300;
-const CARD_HEIGHT = 400;
-const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
-
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
   const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
@@ -31,12 +21,12 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
             Animated.timing(position, {
               toValue: { x: gesture.dx > 0 ? SCREEN_WIDTH + CARD_WIDTH : -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
               duration: 300,
-              useNativeDriver: false,
+              useNativeDriver: false, // Ensure useNativeDriver is set to false for the position animation
             }),
             Animated.timing(scale, {
               toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
-              duration: 900,
-              useNativeDriver: false,
+              duration: 300,
+              useNativeDriver: false, // Ensure useNativeDriver is set to false for the scale animation
             }),
           ]).start(() => {
             // Call onSwipe function when animation ends
@@ -75,6 +65,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
     </Animated.View>
   );
 };
+
 
 const SwipeAnimationApp = () => {
   const handleSwipe = () => {
