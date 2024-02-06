@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
   },
   iconBackground: {
     borderRadius: 100,
+    width: 160,
+    height: 160,
     padding: 10,
   },
 });
