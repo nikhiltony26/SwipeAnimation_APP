@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     left: -100, 
   },
   iconBackground: {
-   borderRadius: 100,
+    borderRadius: 100,
     padding: 10,
   },
 });
