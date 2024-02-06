@@ -69,7 +69,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         ]}
       >
         {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={[styles.icon, { left: -120, top: -160 }]} />
+        <Icon name="times" size={30} color="red" style={[styles.icon, { left: -120, top: -150 }]} />
         <Icon name="check" size={30} color="green" style={[styles.icon, { right: -120, top: -180 }]} />
       </Animated.View>
     </Animated.View>
