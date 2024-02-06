@@ -3,6 +3,8 @@ import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-nati
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const CARD_WIDTH = 300;
+const CARD_HEIGHT = 400;
 
 const SwipeAnimationApp = () => {
   const position = new Animated.ValueXY();
@@ -15,20 +17,20 @@ const SwipeAnimationApp = () => {
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gesture) => {
-      position.setValue({ x: gesture.dx, y: gesture.dy });
+      position.setValue({ x: gesture.dx, y: 0 });
     },
     onPanResponderRelease: (event, gesture) => {
       if (gesture.dx > 120) {
         // Swipe right, animate off screen to the right
         Animated.timing(position, {
-          toValue: { x: SCREEN_WIDTH, y: gesture.dy },
+          toValue: { x: SCREEN_WIDTH + CARD_WIDTH, y: 0 },
           duration: 300,
           useNativeDriver: false,
         }).start();
       } else if (gesture.dx < -120) {
         // Swipe left, animate off screen to the left
         Animated.timing(position, {
-          toValue: { x: -SCREEN_WIDTH, y: gesture.dy },
+          toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
           duration: 300,
           useNativeDriver: false,
         }).start();
@@ -48,14 +50,20 @@ const SwipeAnimationApp = () => {
       <Animated.View
         {...panResponder.panHandlers}
         style={[
-          position.getLayout(),
-          { transform: [{ rotate: rotate }] },
-          styles.card,
+          { transform: [{ translateX: position.x }] },
+          styles.cardContainer,
         ]}
       >
-        {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={styles.icon} />
-        <Icon name="check" size={30} color="green" style={styles.icon} />
+        <Animated.View
+          style={[
+            styles.card,
+            { transform: [{ rotate: rotate }] },
+          ]}
+        >
+          {/* Card content here */}
+          <Icon name="times" size={30} color="red" style={styles.icon} />
+          <Icon name="check" size={30} color="green" style={styles.icon} />
+        </Animated.View>
       </Animated.View>
     </View>
   );
@@ -64,12 +72,18 @@ const SwipeAnimationApp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    padding: 20,
+  },
+  cardContainer: {
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 2,
   },
   card: {
-    width: 300,
-    height: 400,
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     backgroundColor: 'white',
     borderRadius: 10,
     shadowColor: '#000',
