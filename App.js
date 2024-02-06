@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     top: -150,
   },
   iconBackground: {
-    borderRadius: 30, // Ensures circular shape
+    borderRadius: 20, // Ensures circular shape
     padding: 10,
   },
 });
