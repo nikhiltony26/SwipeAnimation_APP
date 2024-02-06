@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 20,
+    elevation: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
