@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import SwipeAnimationApp from './SwipeAnimationApp';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -115,8 +114,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-const SwipeAnimationApp = () => {
-  // Your SwipeAnimationApp component implementation
-};
 
 export default SwipeAnimationApp;
