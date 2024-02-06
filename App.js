@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const CARD_WIDTH = 326;
-const CARD_HEIGHT = 500;
-const BEHIND_CARD_SCALE = 1.0; // Increase the scale of the behind card
+const CARD_WIDTH = 300;
+const CARD_HEIGHT = 400;
+const BEHIND_CARD_SCALE = 0.9; // Decrease the scale of the behind card initially
 
-const Card = ({ backgroundColor, index, onSwipe }) => {
+const Card = ({ backgroundColor, index, onSwipe, swipedIndex }) => {
   const position = useRef(new Animated.ValueXY()).current;
-  const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
+  const scale = useRef(new Animated.Value(BEHIND_CARD_SCALE)).current; // Scale value for the card
 
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -43,22 +43,10 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120) {
           // Swipe animation to the right
-          Animated.timing(position, {
-            toValue: { x: SCREEN_WIDTH + CARD_WIDTH, y: 0 },
-            duration: 150, // Shortened duration
-            useNativeDriver: false,
-          }).start(() => {
-            onSwipe('right');
-          });
+          onSwipe('right');
         } else if (gesture.dx < -120) {
           // Swipe animation to the left
-          Animated.timing(position, {
-            toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: 180, // Shortened duration
-            useNativeDriver: false,
-          }).start(() => {
-            onSwipe('left');
-          });
+          onSwipe('left');
         } else {
           // Not a significant swipe, animate back to initial position
           Animated.spring(position, {
@@ -71,6 +59,13 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
     })
   ).current;
 
+  // Adjust scale of the card based on its index and swipedIndex
+  Animated.timing(scale, {
+    toValue: index === swipedIndex ? 1 : BEHIND_CARD_SCALE,
+    duration: 300,
+    useNativeDriver: false,
+  }).start();
+
   return (
     <Animated.View
       {...panResponder.panHandlers}
@@ -78,11 +73,9 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         styles.cardContainer,
         {
           transform: [
-            { translateY: index * 12 },
+            { translateY: index * 40 },
             { translateX: position.x },
-            { scale: index === 0 ? scale : 1 },
-            // Add translation for the card behind
-            { translateX: index * 0 }, // Adjust the value for desired effect
+            { scale: scale },
           ],
         },
       ]}
@@ -108,18 +101,20 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
   );
 };
 
-
 const SwipeAnimationApp = () => {
+  const [swipedIndex, setSwipedIndex] = useState(null);
+
   const handleSwipe = (direction) => {
     console.log('Swiped:', direction);
+    // Set the index of the swiped card
+    setSwipedIndex(0); // Assuming only the front card is swiped for this example
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <Card backgroundColor="lightyellow" index={3} onSwipe={handleSwipe} />
-      <Card backgroundColor="yellow" index={2} onSwipe={handleSwipe} />
-      <Card backgroundColor="lightgreen" index={1} onSwipe={handleSwipe} />
-      <Card backgroundColor="lightblue" index={0} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightcoral" index={2} onSwipe={handleSwipe} swipedIndex={swipedIndex} />
+      <Card backgroundColor="lightgreen" index={1} onSwipe={handleSwipe} swipedIndex={swipedIndex} />
+      <Card backgroundColor="lightblue" index={0} onSwipe={handleSwipe} swipedIndex={swipedIndex} />
     </View>
   );
 };
@@ -127,7 +122,7 @@ const SwipeAnimationApp = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     position: 'absolute',
-    top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 70) / 2,
+    top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 40) / 2,
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
     zIndex: 2,
   },
@@ -142,7 +137,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 40,
+    elevation: 5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
