@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -43,22 +43,10 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120) {
           // Swipe animation to the right
-          Animated.timing(position, {
-            toValue: { x: SCREEN_WIDTH + CARD_WIDTH, y: 0 },
-            duration: 150, // Shortened duration
-            useNativeDriver: false,
-          }).start(() => {
-            onSwipe('right');
-          });
+          onSwipe('right');
         } else if (gesture.dx < -120) {
           // Swipe animation to the left
-          Animated.timing(position, {
-            toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: 180, // Shortened duration
-            useNativeDriver: false,
-          }).start(() => {
-            onSwipe('left');
-          });
+          onSwipe('left');
         } else {
           // Not a significant swipe, animate back to initial position
           Animated.spring(position, {
@@ -78,11 +66,9 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         styles.cardContainer,
         {
           transform: [
-            { translateY: index * 12 },
+            { translateY: index * 40 },
             { translateX: position.x },
             { scale: index === 0 ? scale : 1 },
-            // Add translation for the card behind
-            { translateX: index * 0 }, // Adjust the value for desired effect
           ],
         },
       ]}
@@ -108,16 +94,19 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
   );
 };
 
-
 const SwipeAnimationApp = () => {
+  const [swipedIndex, setSwipedIndex] = useState(null);
+
   const handleSwipe = (direction) => {
     console.log('Swiped:', direction);
+    // Set the index of the swiped card
+    setSwipedIndex(0); // Assuming only the front card is swiped for this example
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <Card backgroundColor="lightcoral" index={2} onSwipe={handleSwipe} />
-      <Card backgroundColor="lightgreen" index={1} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightcoral" index={2 - swipedIndex} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightgreen" index={1 - swipedIndex} onSwipe={handleSwipe} />
       <Card backgroundColor="lightblue" index={0} onSwipe={handleSwipe} />
     </View>
   );
