@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    top: -300,
+    top: -30,
   },
   iconBackground: {
     borderRadius: 290, // Ensures circular shape
