@@ -38,7 +38,6 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
        // Adjusting icon opacities based on gesture movement
         if (gesture.dx > 50) {
           Animated.timing(rightIconOpacity, {
-            toValue: 0,
             duration: 0,
             useNativeDriver: false,
           }).start();
