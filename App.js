@@ -82,10 +82,10 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         ]}
       >
         <Animated.View style={[styles.iconContainer, { opacity: leftIconOpacity }]}>
-          <Icon name="times" size={60} color="red" />
+          <Icon name="times" size={30} color="red" />
         </Animated.View>
-        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity }]}>
-          <Icon name="check" size={60} color="green" />
+        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity, left: 120 }]}>
+          <Icon name="check" size={30} color="green" />
         </Animated.View>
       </Animated.View>
     </Animated.View>
@@ -132,8 +132,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    top: 10,
-    left: 10,
+    top: -150,
   },
 });
 
