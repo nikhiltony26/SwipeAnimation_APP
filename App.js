@@ -90,7 +90,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
             <Icon name="times" size={40} color="white" />
           </View>
         </Animated.View>
-        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity, left: 120 }]}>
+        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity, left: 10 }]}>
           <View style={[styles.iconBackground, { backgroundColor: 'green' }]}>
             <Icon name="check" size={40} color="white" />
           </View>
