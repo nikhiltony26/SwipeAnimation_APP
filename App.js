@@ -126,7 +126,7 @@ const SwipeAnimationApp = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     position: 'absolute',
-    top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 40) / 2,
+    top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 80) / 2,
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
     zIndex: 2,
   },
