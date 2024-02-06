@@ -68,8 +68,21 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
 
 const SwipeAnimationApp = () => {
   const handleSwipe = () => {
-    // Handle swipe animation completion, for example, moving the next card to the front
-    // Implement your logic here
+    // Handle swipe animation completion
+    // Here, you can trigger the bouncing animation for the card behind
+    // For example:
+    // animateBouncing();
+  };
+
+  // Function to animate bouncing for the card behind
+  const animateBouncing = () => {
+    // Implement the bouncing animation for the card behind
+    // For example:
+    // Animated.spring(cardBehindPosition, {
+    //   toValue: { x: 0, y: 0 },
+    //   friction: 8,
+    //   useNativeDriver: false,
+    // }).start();
   };
 
   return (
