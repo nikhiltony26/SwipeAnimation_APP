@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -11,7 +11,6 @@ const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
   const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
-  const [iconPositions, setIconPositions] = useState({}); // State to store icon positions
 
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -43,15 +42,6 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
             // Call onSwipe function when animation ends
             onSwipe();
           });
-
-          // Check swipe direction and set icon positions accordingly
-          if (gesture.dx > 0) {
-            // Swipe right
-            setIconPositions({ left: 20, top: 20 }); // Right icon on top left
-          } else {
-            // Swipe left
-            setIconPositions({ right: 20, top: 20 }); // Cross icon on top right
-          }
         } else {
           // Not a significant swipe, animate back to initial position
           Animated.spring(position, {
@@ -79,10 +69,40 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         ]}
       >
         {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={[styles.icon, iconPositions]} />
-        <Icon name="check" size={30} color="green" style={[styles.icon, iconPositions]} />
+        <Icon name="times" size={30} color="red" style={styles.icon} />
+        <Icon name="check" size={30} color="green" style={styles.icon} />
       </Animated.View>
     </Animated.View>
+  );
+};
+
+
+const SwipeAnimationApp = () => {
+  const handleSwipe = () => {
+    // Handle swipe animation completion
+    // Here, you can trigger the bouncing animation for the card behind
+    // For example:
+       animateBouncing();
+  };
+
+  // Function to animate bouncing for the card behind
+  const animateBouncing = () => {
+    // Implement the bouncing animation for the card behind
+    // For example:
+    // Animated.spring(cardBehindPosition, {
+    //   toValue: { x: 0, y: 0 },
+    //   friction: 8,
+    //   useNativeDriver: false,
+    // }).start();
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Card backgroundColor="lightcoral" index={2} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightgreen" index={1} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightblue" index={0} onSwipe={handleSwipe} />
+      {/* Add more cards with different colors as needed */}
+    </View>
   );
 };
 
@@ -111,6 +131,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
+    top: 20,
+    left: 20,
   },
 });
 
