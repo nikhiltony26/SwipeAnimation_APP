@@ -11,7 +11,7 @@ const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
   const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
-
+  const [swipeDirection, setSwipeDirection] = useState(null);
 
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -70,8 +70,8 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         ]}
       >
         {/* Card content here */}
-        {swipeDirection === 'left' && <Icon name="times" size={30} color="red" style={[styles.icon, { right: 20, top: 20 }]} />}
-        {swipeDirection === 'right' && <Icon name="check" size={30} color="green" style={[styles.icon, { left: 20, top: 20 }]} />}
+        <Icon name="times" size={30} color="red" style={[styles.icon, { left: -120, top: -150 }]} />
+        <Icon name="check" size={30} color="green" style={[styles.icon, { right: -120, top: -180 }]} />
       </Animated.View>
     </Animated.View>
   );
