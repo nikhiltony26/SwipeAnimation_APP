@@ -11,7 +11,6 @@ const BEHIND_CARD_SCALE = 1.1; // Increase the scale of the behind card
 const Card = ({ backgroundColor, index, onSwipe }) => {
   const position = useRef(new Animated.ValueXY()).current;
   const scale = useRef(new Animated.Value(1)).current; // Scale value for the card
-  const [swipeDirection, setSwipeDirection] = useState(null);
 
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
