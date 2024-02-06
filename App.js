@@ -35,7 +35,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
             }),
             Animated.timing(scale, {
               toValue: BEHIND_CARD_SCALE, // Increase the scale of the behind card
-              duration: 300,
+              duration: 100,
               useNativeDriver: false,
             }),
           ]).start(() => {
