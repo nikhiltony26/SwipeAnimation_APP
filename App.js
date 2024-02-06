@@ -52,7 +52,7 @@ const Card = ({ backgroundColor, index, onSwipe, swipedIndex }) => {
           Animated.spring(position, {
             toValue: { x: 0, y: 0 },
             friction: 4,
-            useNativeDriver: false, // Remove useNativeDriver: true here
+            useNativeDriver: false,
           }).start();
         }
       },
@@ -63,7 +63,7 @@ const Card = ({ backgroundColor, index, onSwipe, swipedIndex }) => {
   Animated.timing(scale, {
     toValue: index === swipedIndex ? 1 : BEHIND_CARD_SCALE,
     duration: 300,
-    useNativeDriver: false, // Change to false
+    useNativeDriver: true,
   }).start();
 
   return (
