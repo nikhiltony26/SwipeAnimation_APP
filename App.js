@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   iconContainer: {
-    position: 'absolute',
+    position: 'relative',
     top: 10,
   },
 });
