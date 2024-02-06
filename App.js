@@ -82,18 +82,18 @@ const SwipeAnimationApp = () => {
     // Handle swipe animation completion
     // Here, you can trigger the bouncing animation for the card behind
     // For example:
-    // animateBouncing();
+       animateBouncing();
   };
 
   // Function to animate bouncing for the card behind
   const animateBouncing = () => {
     // Implement the bouncing animation for the card behind
     // For example:
-    // Animated.spring(cardBehindPosition, {
-    //   toValue: { x: 0, y: 0 },
-    //   friction: 8,
-    //   useNativeDriver: false,
-    // }).start();
+       Animated.spring(cardBehindPosition, {
+       toValue: { x: 0, y: 0 },
+       friction: 8,
+       useNativeDriver: false,
+     }).start();
   };
 
   return (
