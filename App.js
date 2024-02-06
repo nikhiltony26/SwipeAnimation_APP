@@ -63,15 +63,16 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       ]}
     >
       <Animated.View
-        style={[
-          styles.card,
-          { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
-        ]}
-      >
-        {/* Card content here */}
-        <Icon name="times" size={30} color="red" style={[styles.icon, { left: 20, top: 20 }]} />
-        <Icon name="check" size={30} color="green" style={[styles.icon, { right: 20, top: 20 }]} />
-      </Animated.View>
+  style={[
+    styles.card,
+    { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
+  ]}
+>
+  {/* Card content here */}
+  <Icon name="times" size={30} color="red" style={[styles.icon, { left: 20, top: 20 }]} />
+  <Icon name="check" size={30} color="green" style={[styles.icon, { right: 20, top: 20 }]} />
+</Animated.View>
+
     </Animated.View>
   );
 };
