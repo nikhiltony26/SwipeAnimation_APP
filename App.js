@@ -76,7 +76,15 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
       {...panResponder.panHandlers}
       style={[
         styles.cardContainer,
-        { transform: [{ translateY: index * 40 }, { translateX: position.x }, { scale: index === 0 ? scale : 1 }] },
+        {
+          transform: [
+            { translateY: index * 40 },
+            { translateX: position.x },
+            { scale: index === 0 ? scale : 1 },
+            // Add translation for the card behind
+            { translateX: index * 10 }, // Adjust the value for desired effect
+          ],
+        },
       ]}
     >
       <Animated.View
