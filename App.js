@@ -147,10 +147,7 @@ const styles = StyleSheet.create({
     left: -100, 
   },
   iconBackground: {
-    borderRadius: 100,
-    width: 160,
-    height: 160,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  
     padding: 10,
   },
 });
