@@ -7,7 +7,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
 const CARD_HEIGHT = 400;
 
-const SwipeAnimationApp = () => {
+const Card = ({ backgroundColor }) => {
   const position = new Animated.ValueXY();
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -58,7 +58,7 @@ const SwipeAnimationApp = () => {
         <Animated.View
           style={[
             styles.card,
-            { transform: [{ rotate: rotate }] },
+            { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
           ]}
         >
           {/* Card content here */}
@@ -66,6 +66,17 @@ const SwipeAnimationApp = () => {
           <Icon name="check" size={30} color="green" style={styles.icon} />
         </Animated.View>
       </Animated.View>
+    </View>
+  );
+};
+
+const SwipeAnimationApp = () => {
+  return (
+    <View style={{ flex: 1 }}>
+      <Card backgroundColor="lightblue" />
+      <Card backgroundColor="lightgreen" />
+      <Card backgroundColor="lightcoral" />
+      {/* Add more cards with different colors as needed */}
     </View>
   );
 };
@@ -87,7 +98,6 @@ const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    backgroundColor: 'white',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -97,6 +107,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     position: 'absolute',
