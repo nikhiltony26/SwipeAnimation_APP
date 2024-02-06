@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   iconContainer: {
-    position: 'relative',
+    position: 'absolute',
     top: -180,
     left: -100, 
   },
