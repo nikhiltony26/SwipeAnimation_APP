@@ -50,7 +50,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           Animated.timing(rightIconOpacity, {
             toValue: 0,
             duration: 0,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }).start();
           Animated.timing(leftIconOpacity, {
             toValue: 1,
