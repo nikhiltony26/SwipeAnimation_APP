@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    top: -20,
+    top: 10,
     left: -120,
   },
 });
