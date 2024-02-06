@@ -7,7 +7,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
 const CARD_HEIGHT = 400;
 
-const Card = ({ backgroundColor }) => {
+const Card = ({ backgroundColor, index }) => {
   const position = new Animated.ValueXY();
   const rotate = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -47,50 +47,41 @@ const Card = ({ backgroundColor }) => {
   });
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      {...panResponder.panHandlers}
+      style={[
+        styles.cardContainer,
+        { transform: [{ translateY: index * 20 }] },
+      ]}
+    >
       <Animated.View
-        {...panResponder.panHandlers}
         style={[
-          styles.cardContainer,
-          { transform: position.getTranslateTransform() },
+          styles.card,
+          { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
         ]}
       >
-        <Animated.View
-          style={[
-            styles.card,
-            { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
-          ]}
-        >
-          {/* Card content here */}
-          <Icon name="times" size={30} color="red" style={styles.icon} />
-          <Icon name="check" size={30} color="green" style={styles.icon} />
-        </Animated.View>
+        {/* Card content here */}
+        <Icon name="times" size={30} color="red" style={styles.icon} />
+        <Icon name="check" size={30} color="green" style={styles.icon} />
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 };
 
 const SwipeAnimationApp = () => {
   return (
     <View style={{ flex: 1 }}>
-      <Card backgroundColor="lightblue" />
-      <Card backgroundColor="lightgreen" />
-      <Card backgroundColor="lightcoral" />
+      <Card backgroundColor="lightblue" index={0} />
+      <Card backgroundColor="lightgreen" index={1} />
+      <Card backgroundColor="lightcoral" index={2} />
       {/* Add more cards with different colors as needed */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   cardContainer: {
     position: 'absolute',
-    width: CARD_WIDTH,
-    height: CARD_HEIGHT,
     top: SCREEN_HEIGHT / 2 - CARD_HEIGHT / 2,
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
     zIndex: 2,
