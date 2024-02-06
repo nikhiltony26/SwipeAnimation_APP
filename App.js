@@ -18,23 +18,17 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
     extrapolate: 'clamp',
   });
 
-  const leftIconOpacity = position.x.interpolate({
-    inputRange: [-SCREEN_WIDTH / 2, -50, 0],
-    outputRange: [1, 0, 0],
-    extrapolate: 'clamp',
-  });
-
-  const rightIconOpacity = position.x.interpolate({
-    inputRange: [0, 50, SCREEN_WIDTH / 2],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
+  // Initialize opacity values
+  const leftIconOpacity = useRef(new Animated.Value(0)).current;
+  const rightIconOpacity = useRef(new Animated.Value(0)).current;
 
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: 0 });
+
+        // Adjusting icon opacities based on gesture movement
         if (gesture.dx > 50) {
           rightIconOpacity.setValue(1);
           leftIconOpacity.setValue(0);
@@ -46,13 +40,12 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           leftIconOpacity.setValue(0);
         }
       },
-      
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > 120) {
           // Swipe animation to the right
           Animated.timing(position, {
             toValue: { x: SCREEN_WIDTH + CARD_WIDTH, y: 0 },
-            duration: 300,
+            duration: 150, // Shortened duration
             useNativeDriver: false,
           }).start(() => {
             onSwipe('right');
@@ -61,7 +54,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           // Swipe animation to the left
           Animated.timing(position, {
             toValue: { x: -SCREEN_WIDTH - CARD_WIDTH, y: 0 },
-            duration: -100,
+            duration: 150, // Shortened duration
             useNativeDriver: false,
           }).start(() => {
             onSwipe('left');
@@ -70,7 +63,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           // Not a significant swipe, animate back to initial position
           Animated.spring(position, {
             toValue: { x: 0, y: 0 },
-            friction: 8,
+            friction: 4,
             useNativeDriver: false,
           }).start();
         }
@@ -92,11 +85,15 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
           { transform: [{ rotate: rotate }], backgroundColor: backgroundColor },
         ]}
       >
-        <Animated.View style={[styles.iconContainer, { opacity: leftIconOpacity,top: -120 }]}>
-      <Icon name="times" size={60} color="rgba(255, 0, 0, 1.0)" backgroundColor='rgba(255, 0, 0, 0.7)' height='80' width='80'borderRadius='80'/>
+        <Animated.View style={[styles.iconContainer, { opacity: leftIconOpacity }]}>
+          <View style={[styles.iconBackground, { backgroundColor: 'green' }]}>
+            <Icon name="times" size={30} color="red" />
+          </View>
         </Animated.View>
-        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity, left: 30 }]}>
-          <Icon name="check" size={60} color="rgba(0, 255, 0, 1.0)" />
+        <Animated.View style={[styles.iconContainer, { opacity: rightIconOpacity, left: 120 }]}>
+          <View style={[styles.iconBackground, { backgroundColor: 'red' }]}>
+            <Icon name="check" size={30} color="green" />
+          </View>
         </Animated.View>
       </Animated.View>
     </Animated.View>
@@ -142,12 +139,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   iconContainer: {
-    position: 'relative',
-    top: -180,
-    left: -100, 
+    position: 'absolute',
+    top: -150,
   },
   iconBackground: {
-  
+    borderRadius: 100, // Ensures circular shape
     padding: 10,
   },
 });
