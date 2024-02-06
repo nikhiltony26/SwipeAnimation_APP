@@ -78,7 +78,7 @@ const Card = ({ backgroundColor, index, onSwipe }) => {
         styles.cardContainer,
         {
           transform: [
-            { translateY: index * 12 },
+            { translateY: index * 1 },
             { translateX: position.x },
             { scale: index === 0 ? scale : 1 },
             // Add translation for the card behind
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 40) / 2,
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
-    zIndex: -20,
+    zIndex: 2,
   },
   card: {
     width: CARD_WIDTH,
