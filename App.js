@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: 'relative',
     top: -180,
-    left: 30, 
+    left: -100, 
   },
   iconBackground: {
-    borderRadius: 100,
+   borderRadius: 100,
     padding: 10,
   },
 });
