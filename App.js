@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: SCREEN_HEIGHT / 2 - (CARD_HEIGHT + 40) / 2,
     left: SCREEN_WIDTH / 2 - CARD_WIDTH / 2,
-    zIndex: 3,
+    zIndex: 20,
   },
   card: {
     width: CARD_WIDTH,
