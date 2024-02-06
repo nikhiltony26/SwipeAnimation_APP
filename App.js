@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    borderRadius: 1,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
