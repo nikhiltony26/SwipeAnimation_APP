@@ -116,6 +116,9 @@ const SwipeAnimationApp = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      <Card backgroundColor="lightcoral" index={5} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightgreen" index={4} onSwipe={handleSwipe} />
+      <Card backgroundColor="lightblue" index={3} onSwipe={handleSwipe} />
       <Card backgroundColor="lightcoral" index={2} onSwipe={handleSwipe} />
       <Card backgroundColor="lightgreen" index={1} onSwipe={handleSwipe} />
       <Card backgroundColor="lightblue" index={0} onSwipe={handleSwipe} />
