@@ -51,7 +51,7 @@ const Card = ({ backgroundColor, index }) => {
       {...panResponder.panHandlers}
       style={[
         styles.cardContainer,
-        { transform: [{ translateY: index * 40 }] },
+        { transform: [{ translateY: index * 40 }, { translateX: position.x }] },
       ]}
     >
       <Animated.View
