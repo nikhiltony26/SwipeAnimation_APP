@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, PanResponder, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const CARD_WIDTH = 300;
